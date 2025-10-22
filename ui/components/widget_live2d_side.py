@@ -243,6 +243,12 @@ class Live2DSideWidget(QWidget):
             return
 
         if self.display_mode == 'image':
+            # 检查主配置文件中的Live2D enabled参数
+            from system.config import config
+            if not config.live2d.enabled:
+                print("Live2D功能已在配置中禁用，无法切换")
+                return
+
             # 尝试切换到Live2D模式
             if self.live2d_model_path and os.path.exists(self.live2d_model_path):
                 success = self.set_live2d_model(self.live2d_model_path)
